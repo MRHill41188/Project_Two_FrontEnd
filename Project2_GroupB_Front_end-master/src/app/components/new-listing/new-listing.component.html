@@ -1,0 +1,151 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="w-75 mx-auto">
+
+  <h1 class="text-center my-5">Adoption Application</h1>
+
+  <form class="p-5">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="name">Please enter your pet/friend's name:</label>
+        <input class="form-control" name="name-text" [(ngModel)]="name" [placeholder]="namePlaceholder" required>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="type">Please enter its type:</label>
+        <select class="form-control" id="type" name="type-select" [(ngModel)]="type">
+          <option *ngFor="let type of shared.types">{{type}}</option>
+        </select>
+      </div>
+      <!-- <div class="form-group col-md-4">
+      <label for="type">Please enter its breed:</label>
+      <select class="form-control" id="type">
+        <option id='cat'>According to animal type</option>
+      </select>
+    </div> -->
+
+      <div class="form-group col-md-4">
+        <label for="type">Please enter the breed/species:</label>
+        <input type="text" class="form-control" name="species-text" [(ngModel)]="species" [placeholder]="speciesPlaceholder" required>
+      </div>
+
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">        
+        <label for="inputColor">Color</label>
+        <select id="inputColor" class="form-control" name="color-select" [(ngModel)]="color">
+          <option *ngFor="let color of shared.colors">{{color}}</option>
+        </select> 
+        
+     <!-- <br/>
+      {{type}}
+        <div *ngIf="'Dog'=='Dog'; then thenBlock else elseBlock">
+          within *ngIf
+          <ng-template #thenBlock>
+            Dog type
+            <select name="dog-colors" [(ngModel)]="color">
+              <option *ngFor="let color of shared.dogColors">{{color.name}}</option>
+            </select> 
+          </ng-template>
+          <ng-template #elseBlock>
+            Not dog type
+              <select id="inputColor" class="form-control" name="color-select" [(ngModel)]="color">
+                <option *ngFor="let color of shared.colors">{{color}}</option>
+              </select>
+          </ng-template>
+        </div> -->
+        
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputAge">Age</label>
+        <input type="number" min="0" class="form-control" id="inputAge" name="age-number" [(ngModel)]="age" (focusout)="onAgeChanged()">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputWeight">Weight (in lbs)</label>
+        <input type="number" min="0" class="form-control" id="inputWeight" name="weight-number" [(ngModel)]="weight" (focusout)="onWeightChanged()">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputSex">Sex</label>
+        <select id="inputSex" class="form-control" name="sex-select" [(ngModel)]="sex">
+          <option *ngFor="let sex of shared.sexes">{{sex}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputSpayed">Spayed/Neutered</label>
+        <select id="inputSpayed" class="form-control" name="fixed-select" [(ngModel)]="fixed">
+          <option *ngFor="let fix of shared.fixed">{{fix}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="aboutYourPet">Please tell us more about your friend/pet</label>
+      <textarea class="form-control" id="aboutYourPet" rows="3" name="about_textarea" [(ngModel)]="about"></textarea>
+    </div>
+
+    <div *ngIf="imageFiles && imageFiles.length > 0">
+      <div class="custom-file mb-3" *ngFor="let file of imageFiles; let num = index">
+        <input type="file" class="custom-file-input" id="custom-file" (change)="onReplacePic($event, num)">
+        <label class="custom-file-label" for="custom-file">{{file.name}}</label>
+      </div>
+    </div>
+
+    <!--upload a picture-->
+    <div class="custom-file mb-3">
+      <input type="file" class="custom-file-input" id="new-file" (change)="onPicInput($event)">
+      <label class="custom-file-label" for="new-file">Upload a picture of your friend/pet</label>
+    </div>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-secondary" (click)="onClearImages()">Clear Images</button>
+    </div>
+
+    <div *ngIf="videoUrls && videoUrls.length > 0">
+      <div class="form-group" *ngFor="let url of videoUrls">
+        <label for="videoLink">Link to a video of your pet/friend's name:</label>
+        <input type="text" class="form-control" value="{{url}}">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="videoLink">Link to a video of your pet/friend's name:</label>
+      <input id="videoLink" type="text" class="form-control" name="new-video-url" [(ngModel)]="newVideo">
+    </div>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-secondary" (click)="onLinkVideo()">Link Another Video</button>
+    </div>
+
+    <div class="form-group">
+      <label for="inputAddress">Address</label>
+      <input type="text" class="form-control" id="inputAddress" name="address-text" [(ngModel)]="address">
+    </div>
+    <!-- <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2">
+  </div> -->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" name="city-text" [(ngModel)]="city">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputState">State</label>
+        <select id="inputState"  class="form-control" name="state-text" [(ngModel)]="state">
+          <option *ngFor="let state of shared.states">{{state.abbreviation}}</option>
+        </select>
+        <!-- <select id="inputState" class="form-control">
+        <option selected>Please click to select</option>
+        <option>...</option>
+      </select> -->
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputZip">Zip code</label>
+        <input type="text" pattern="[0-9]{5}" class="form-control" id="inputZip" name="zip-text" [(ngModel)]="zip" [placeholder]="zipPlaceholder" required>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-primary btn-lg w-25" (click)="onSubmitPressed($event)">Submit</button>
+    </div>
+  </form>
+</div>

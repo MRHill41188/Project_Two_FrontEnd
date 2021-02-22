@@ -1,0 +1,25 @@
+<app-carosel></app-carosel>
+
+<form>
+    <div class="container my-5">
+        <h1 class="text-center">Furever Home</h1>
+        <div class="form-group mx-auto w-50">
+            <div style="display:flex;">
+                <span class="hide">required</span>
+                <input name="User" [(ngModel)]="username" id="username_text" class="form-control my-3"
+                    placeholder="Username" type="text" (change)="validateUsername()">
+                <span id="username_required" [class]="usernameClass">required</span> </div>
+            <div style="display:flex;">
+                <span class="hide">required</span>
+                <input name="Userpassword" [(ngModel)]="password" id="password_text" class="form-control my-3"
+                    placeholder="Password" type="password" (change)="validatePassword()">
+                <span id="password_required" [class]="passwordClass">required</span>
+            </div>
+            <div class="text-center">
+                <input id="login_button" (click)="onSubmit()" class="btn btn-primary btn-lg revature_orange w-25"
+                    type="submit" value="Login">
+                <div id="login_error" [class]="loginClass">{{errorMess}}</div>
+            </div>
+        </div>
+    </div>
+</form>

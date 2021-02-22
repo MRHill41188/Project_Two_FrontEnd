@@ -1,0 +1,16 @@
+nav {
+    background: green;
+    color: #EEE;
+    font-family: fantasy;
+}
+
+.nav-item {
+    text-align: center;
+    cursor: pointer;
+    font-family: sans-serif;
+    color: white;
+}
+
+.nav-item:hover {
+    background: red;
+}

@@ -1,0 +1,74 @@
+<app-nav-bar></app-nav-bar>
+
+<h1 class="text-center mt-5">Search</h1>
+<div class="text-center mb-5">
+    <img src="/assets/images/search/icons.png" alt="pet icons">
+</div>
+
+<div class="form-group mx-auto w-50">
+    <label for="type_select">Search by pet type:</label>
+    <select id="type_select" class="form-control" [(ngModel)]="type" (change)="onType()">
+        <!--(change)="onTypeSelected($event)">-->
+        <option *ngFor="let type of shared.types">{{type}}</option>
+    </select>
+</div>
+
+<form>
+    <div class="form-group mx-auto w-50">
+        <label for="city_text">Search by location:</label>
+        <div class="container w-100">
+            <div class="row">
+                <div class="col-8">
+                    <input name="city_name" id="city_text" class="form-control" type="text" placeholder="City"
+                        [(ngModel)]="city" (change)="onCity()">
+                </div>
+                <div class="col-4">
+                    <input name="state_name" id="state_text" class="form-control" type="text" placeholder="State"
+                        [(ngModel)]="state" (change)="onState()">
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <button id="search_button" class="btn btn-primary my-5 w-50" type="button"
+                (click)="onSearchPressed($event)">Search</button>
+        </div>
+    </div>
+</form>
+
+<!--pagination-->
+<div class="d-flex">
+    <ul class="pagination mx-auto">
+        <li [className]="prevClass"><a class="page-link" href="javascript:;" (click)='onPagePrev()'>Previous</a></li>
+        <li [className]="pageAClass"><a class="page-link" href="javascript:;" (click)='onPageA()'>{{pageANum}}</a></li>
+        <li [className]="pageBClass"><a class="page-link" href="javascript:;" (click)='onPageB()'>{{pageBNum}}</a></li>
+        <li [className]="pageCClass"><a class="page-link" href="javascript:;" (click)='onPageC()'>{{pageCNum}}</a></li>
+        <li [className]="nextClass"><a class="page-link" href="javascript:;" (click)='onPageNext()'>Next</a></li>
+    </ul>
+</div>
+
+<div *ngIf="results && results.length > 0" class="container-fluid my-4">
+    <div id="divCards" class="row">
+
+        <div class="p-2 col-sm-5 col-md-4 col-lg-3" *ngFor="let result of results">
+            <div class="card">
+                <img *ngIf="result.imageUrls.length > 0" class='card-img-top' [src]="result.imageUrls[0].url"
+                    alt='Card image' style='width:100%'>
+                <div class="card-body" style="background-color:white;">
+                    <h4 class="card-title">{{result.name}}</h4>
+
+                    <span *ngIf="result.age > 0">{{result.age}} year old </span>
+                    <span *ngIf="result.sex > 0">{{shared.sexes[result.sex]}} </span>
+                    <span *ngIf="result.species">{{result.species}}</span>
+
+                    <div *ngIf="result.fixed" class="card-text">Fixed: {{shared.fixed[result.fixed]}}</div>
+                    <div class="card-text">{{result.city + ", " + result.state + ", " + result.zipCode}}</div>
+
+                    <div class="text-center mt-3">
+                        <a href="" class='btn btn-primary w-75 detailsA' (click)="onDetailsClicked($event, result)">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

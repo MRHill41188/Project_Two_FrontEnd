@@ -1,0 +1,54 @@
+<app-nav-bar></app-nav-bar>
+
+<div>
+  <h1 class="text-center my-5">Review Applicants</h1>
+</div>
+
+<div *ngIf="!results || results.length == 0">
+  <p class="big-text text-center">{{noneMess}}</p>
+</div>
+
+<div *ngIf="results && results.length > 0">
+
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel *ngFor="let result of results">
+
+      <ng-template ngbPanelHeader>
+        <div class="d-flex align-items-center justify-content-between">
+          <button ngbPanelToggle class="btn btn-link container-fluid text-left pl-0 btn-lg">
+              {{result.dateString}} - {{result.firstName}} {{result.lastName}}
+          </button>
+        </div>
+      </ng-template>
+
+      <ng-template ngbPanelContent>
+        <div class="text-center">
+          <p class="big-text">
+            <span *ngIf="result.firstName">{{result.firstName}} </span>
+            <span *ngIf="result.lastName">{{result.lastName}}</span>
+          </p>
+          <p>
+            <span *ngIf="result.email">{{result.email}} </span>
+            <span *ngIf="result.phone">{{result.phone}}</span>
+          </p>
+          <p>
+            <span *ngIf="result.address">{{result.address}}, </span>
+            <span *ngIf="result.city">{{result.city}}, </span>
+            <span *ngIf="result.state">{{result.state}}, </span>
+            <span *ngIf="result.zipCode">{{result.zipCode}}</span>
+          </p>
+        </div>
+
+        <hr>
+
+        <div *ngFor="let a of result.answers" ng-click="onClick($event, result)">
+          <p class="big-text">{{a.question.question}}</p>
+          <div class="ml-5">
+            <p>{{a.answer}}</p>
+          </div>
+        </div>
+      </ng-template>
+
+    </ngb-panel>
+  </ngb-accordion>
+</div>

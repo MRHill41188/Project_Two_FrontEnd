@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-2 text-center">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Adopt A Pet</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem routerLink="/search">Search</button>
+          <button ngbDropdownItem routerLink="/past-applications">View Past Applications</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-6"></div>
+    <div class="col-2 text-center">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Rehome A Pet</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem routerLink="/new-listing">Post New Listing</button>
+          <button ngbDropdownItem routerLink="/past-listings">My listings</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-1 text-center">
+      <a href="" (click)="onLogOut($event)">Log Out</a>
+    </div>
+  </div>
+</div>

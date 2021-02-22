@@ -1,0 +1,46 @@
+<app-nav-bar></app-nav-bar>
+
+<h1 class="header text-center my-3 py-3">Customize Application</h1>
+
+<h3 class="text-center">Applicants will be asked the following:</h3>
+<div class="d-flex">
+    <ul class="big-text mx-auto">
+        <li>Name</li>
+        <li>Email</li>
+        <li>Phone</li>
+        <li>Address</li>
+    </ul>
+</div>
+
+<hr>
+
+<div class="text-center">
+    <h3>You can also ask custom questions:</h3>
+    <p class="big-text">For example, do you have any other pets?</p>
+</div>
+
+<div class="mx-auto w-75">
+    <form>
+
+        <div class="input-group mb-3" *ngFor="let question of questions">
+            <div class="input-group-prepend">
+                <span class="big-text input-group-text">Ask a question</span>
+            </div>
+            <input name="question-input" type="text" class="form-control" value="{{question}}">
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="big-text input-group-text">Ask a question</span>
+            </div>
+            <input name="new-question-input" type="text" class="form-control" [(ngModel)]="newQuestion">
+        </div>
+
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg my-3" (click)="onAskQuestion()">Ask another question</button>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg my-3" (click)="onDone()">Done</button>
+        </div>
+    </form>
+</div>

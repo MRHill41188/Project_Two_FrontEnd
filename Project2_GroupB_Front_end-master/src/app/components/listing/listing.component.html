@@ -1,0 +1,58 @@
+<app-nav-bar></app-nav-bar>
+
+<!--this allows the heart icon next to the pet's name-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+    integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+<!--ng-bootstrap carousel-->
+<div *ngIf="result">
+    <div *ngIf="result.imageUrls && result.imageUrls.length > 0" class="container">
+        <ngb-carousel>
+            <!--| async might need to appear after imageUrls. same with videoUrls-->
+            <ng-template ngbSlide *ngFor="let image of result.imageUrls">
+                <div class="picsum-img-wrapper text-center">
+                    <img [src]="image.url" alt="slide" width="75%" height="50%">
+                </div>
+                <!-- <div class="carousel-caption">
+                <h3>10 seconds between slides...</h3>
+                <p>This carousel uses customized default values.</p>
+            </div> -->
+            </ng-template>
+        </ngb-carousel>
+    </div>
+
+    <!--pet information-->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center listing-text">
+            <h1 class="listing-text"><i class="fas fa-heart"></i> {{result.name}} <i class="fas fa-heart"></i></h1>
+            <p>
+                <span *ngIf="result.color">{{shared.colors[result.color]}} </span>
+                <span *ngIf="result.species">{{result.species}}</span>
+            </p>
+            <p>
+                <span *ngIf="result.age > 0">{{result.age}} year old </span>
+                <span *ngIf="result.sex > 0">{{shared.sexes[result.sex]}}</span>
+            </p>
+            <p *ngIf="result.fixed != 2">Fixed: {{shared.fixed[result.fixed]}}</p>
+            <p>{{result.city + ", " + result.state + ", " + result.zipCode}}</p>
+        </div>
+    </div>
+
+    <!--videos of pet-->
+    <div class="container col-8 text-center listing-text">
+        <h2>{{result.name}}'s Story</h2>
+        <p class="mb-5">{{result.about}}</p>
+
+        <div *ngIf="result.videoUrls && result.videoUrls.length > 0">
+            <div class="my-5" *ngFor="let video of result.videoUrls">
+                <!--urls in angular must be "sanitized" when binding to src attribute-->
+                <iframe width="560" height="315" [src]="sanitizer.bypassSecurityTrustResourceUrl(video.url)"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!--adopt button-->
+        <button type="button" class="btn btn-primary btn-lg w-50 mb-5" (click)="onAdoptClicked($event)">Adopt</button>
+    </div>
+</div>
